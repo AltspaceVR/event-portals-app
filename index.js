@@ -1,12 +1,6 @@
 'use strict';
 
-var MAX_EVENTS = 7;
-var X_MAX = 0;
-var X_MIN = 0;
-var Y_MAX = 10;
-var Y_MIN = -10;
-
-function pollEvents(currentEventPortals, xMax, xMin, yMax, yMin) {
+function pollEvents(currentEventPortals, maxPortals, xMax, xMin, yMax, yMin) {
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', "https://account.altvr.com/api/home/recommended");
@@ -25,10 +19,10 @@ function pollEvents(currentEventPortals, xMax, xMin, yMax, yMin) {
                 delete currentEventPortals[sid];
             }
 
-            for (var i = 0; i < MAX_EVENTS; i++) {
+            for (var i = 0; i < maxPortals; i++) {
                 if (!sids[i]) break;
 
-                var result = calculatePortalPositionAndRotation(i, xMax, xMin, yMax, yMin);
+                var result = calculatePortalPositionAndRotation(i, maxPortals, xMax, xMin, yMax, yMin);
                 var position = result[0];
                 var rotation = result[1];
 
@@ -55,12 +49,12 @@ function pollEvents(currentEventPortals, xMax, xMin, yMax, yMin) {
     };
     xhr.send();
 
-    window.setTimeout(pollEvents, 5 * 60 * 1000, currentEventPortals, xMax, xMin, yMax, yMin);
+    window.setTimeout(pollEvents, 5 * 60 * 1000, currentEventPortals, maxPortals, xMax, xMin, yMax, yMin);
 }
 
-function calculatePortalPositionAndRotation(i, xMax, xMin, yMax, yMin) {
-    var xPos = i / MAX_EVENTS * (xMax + Math.abs(xMin)) + xMin;
-    var yPos = i / MAX_EVENTS * (yMax + Math.abs(yMin)) + yMin;
+function calculatePortalPositionAndRotation(i, maxPortals, xMax, xMin, yMax, yMin) {
+    var xPos = i / maxPortals * (xMax + Math.abs(xMin)) + xMin;
+    var yPos = i / maxPortals * (yMax + Math.abs(yMin)) + yMin;
 
     var position = xPos + " 0.5 " + yPos;
     var rotation = "0 90 0";
@@ -92,6 +86,6 @@ AFRAME.registerComponent('event-portals', {
     },
     init: function() {
         this.currentEventPortals = {};
-        pollEvents(this.currentEventPortals, this.data.xMax, this.data.xMin, this.data.yMax, this.data.yMin);
+        pollEvents(this.currentEventPortals, this.maxPortals, this.data.xMax, this.data.xMin, this.data.yMax, this.data.yMin);
     }
 });
