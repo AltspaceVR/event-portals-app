@@ -9,7 +9,7 @@ var Y_MIN = -10;
 function pollEvents(currentEventPortals, xMax, xMin, yMax, yMin) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open('GET', "https://account.altvr.com/api/home/my_experiences");
+    xhr.open('GET', "https://account.altvr.com/api/home/recommended");
     xhr.withCredentials = true;
     xhr.onreadystatechange = function(e) {
         if (this.readyState === XMLHttpRequest.DONE) {
@@ -59,8 +59,8 @@ function pollEvents(currentEventPortals, xMax, xMin, yMax, yMin) {
 }
 
 function calculatePortalPositionAndRotation(i, xMax, xMin, yMax, yMin) {
-    var xPos = i / MAX_EVENTS * (xMax + Math.abs(xMin)) + xMin - 9;
-    var yPos = i / MAX_EVENTS * (yMax + Math.abs(yMin)) + yMin + 8;
+    var xPos = i / MAX_EVENTS * (xMax + Math.abs(xMin)) + xMin;
+    var yPos = i / MAX_EVENTS * (yMax + Math.abs(yMin)) + yMin;
 
     var position = xPos + " 0.5 " + yPos;
     var rotation = "0 90 0";
