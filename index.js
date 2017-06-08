@@ -57,7 +57,7 @@ function calculatePortalPositionAndRotation(i, maxPortals, xMax, xMin, yMax, yMi
     var yPos = i / maxPortals * (yMax + Math.abs(yMin)) + yMin;
 
     var position = xPos + " 0.5 " + yPos;
-    var rotation = "0 90 0";
+    var rotation = "0 0 0";
     return [position, rotation];
 }
 
