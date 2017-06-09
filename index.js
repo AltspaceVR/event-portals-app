@@ -86,6 +86,6 @@ AFRAME.registerComponent('event-portals', {
     },
     init: function() {
         this.currentEventPortals = {};
-        pollEvents(this.currentEventPortals, this.maxPortals, this.data.xMax, this.data.xMin, this.data.yMax, this.data.yMin);
+        pollEvents(this.currentEventPortals, this.data.maxPortals, this.data.xMax, this.data.xMin, this.data.yMax, this.data.yMin);
     }
 });
