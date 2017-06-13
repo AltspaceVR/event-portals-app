@@ -43,7 +43,7 @@ function pollEvents(currentEventPortals, maxPortals, xMax, xMin, yMax, yMin) {
                 eventTitle.setAttribute("position", "0 0.3 0");
                 newPortal.appendChild(eventTitle);
 
-                currentEventPortals[sid[i]] = newPortal;
+                currentEventPortals[sids[i]] = newPortal;
                 document.getElementById("anchor").appendChild(newPortal);
             }
         }
